@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="miniTC.PanelTC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:miniTC"
+             xmlns:rs="clr-namespace:miniTC.Properties" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="275">
+
+    <UserControl.Resources>
+        <rs:Resources x:Key="resources"/>
+    </UserControl.Resources>
+
+    <StackPanel Grid.Column="0">
+        <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="{Binding PathLabel, Source={StaticResource ResourceKey=resources}}" Margin="20 0"/>
+            <TextBox Text="{Binding SelectedPath}" MinWidth="200" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  IsEnabled="False" />
+        </StackPanel>
+        <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="{Binding DriveLabel, Source={StaticResource ResourceKey=resources}}" Margin="20 0"/>
+
+            <ComboBox Width="50" ItemsSource="{Binding Drives}" SelectedItem="{Binding SelectedPath}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownOpened">
+                        <i:InvokeCommandAction Command="{Binding UpdateDrives}" CommandParameter="{Binding }"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </StackPanel>
+        <ListBox Margin="10" MinHeight="350" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="350" />
+    </StackPanel>
+</UserControl>
